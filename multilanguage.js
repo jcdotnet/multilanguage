@@ -16,7 +16,8 @@
  *
  * It's that easy! Hope this library is useful!
  *
- * Author: JC / jcdotnet@hotmail.com
+ * Copyright (c) 2015 by Jose Carlos Román Rubio (jcdotnet@hotmail.com)
+ * Distributed under the MIT License. (See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT)
  *
  * This file has been written in pure javascript so you don't have to reference any other libraries. 
  *
