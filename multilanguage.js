@@ -51,21 +51,20 @@ var errors = [
     {error: "email-no-domain", en_GB: "Enter text after \"@\"", es_ES: "Introduzca un valor después del signo \"@\""}   
 ]
 
-/*
- * STEP 3: INITIAL LANGUAGE
- * 
- * Sets the initial user interface language 
- * Important! The string value must match exactly one of the language names 
- * specified in the strings array
- */
-var language = "en_GB"; // set the initial language here
-
 /* 
  * localstorage stores the language with no expiration date so that every time we 
  * either access or refresh the page, the last language stored will be displayed
  */ 
-if (localStorage.language === null)
-    localStorage.setItem("language", language); 
+if (localStorage.getItem("language") === "undefined" || localStorage.getItem("language") === null)
+{
+   /*
+    * STEP 3: INITIAL LANGUAGE
+    * Enter the initial user interface language 
+    * Important! The string value must match exactly one of the language names 
+    * specified in the strings array
+    */
+    localStorage.setItem("language", "en_GB");
+}
 
 /*
  * Changes the user interface language to the language passed in
