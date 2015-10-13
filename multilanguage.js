@@ -11,7 +11,7 @@
  * STEP 1) Add a reference of this library to your project: 
  * STEP 2) Add the texts you want to be translated into the "strings" and "errors" array. 
  * STEP 3) Assign the initial language to the global variable "language". You can also get the browser's default language, checking and converting it if necessary. 
- * STEP 4) In your HTML add the attribute "data-text" to the element that contains the text to be translated. For example: <h1 data-text="welcome"></h1>
+ * STEP 4) In your HTML add the attribute "data-text" to the element that contains the text to be translated. For example: data-text="welcome"
  * STEP 5) Call to the function ChangeLanguage passing one of the languages we've defined above as parameter to change the UI language without refreshing the page.
  *
  * It's that easy! Hope this library is useful!
@@ -51,36 +51,12 @@ var errors = [
     {error: "email-no-domain", en_GB: "Enter text after \"@\"", es_ES: "Introduzca un valor después del signo \"@\""}   
 ]
 
-/* 
- * localstorage stores the language with no expiration date so that every time we 
- * either access or refresh the page, the last language stored will be displayed
- */ 
-if (localStorage.getItem("language") === "undefined" || localStorage.getItem("language") === null)
-{
-   /*
-    * STEP 3: INITIAL LANGUAGE
-    * Enter the initial user interface language 
-    * Important! The string value must match exactly one of the language names 
-    * specified in the strings array
-    */
-    localStorage.setItem("language", "en_GB");
-}
-
-/*
- * Changes the user interface language to the language passed in
- * Important! parameter must match exactly one of the language names 
- * specified in the strings array 
- */
-ChangeLanguage = function(lang){
-    SetLanguage(lang);
-};
-
 /*
  * Sets the user interface language at runtime to the language passed in
  * @param {type} lang, Important! This parameter must match exactly one of the
  * language names specified in the strings array  
  */
-SetLanguage = function(lang){
+setLanguage = function(lang){
     localStorage.setItem("language", lang); 
     for (var i = 0; i < strings.length; i++) { 
         var elements = document.querySelectorAll("[data-text=" + strings[i].text + "]");      
@@ -110,10 +86,10 @@ SetLanguage = function(lang){
             }       
         }
     };
-    SetInputErrors(lang);
+    setInputErrors(lang);
 };
 
-SetInputErrors = function(lang) 
+setInputErrors = function(lang) 
 {
     var elements = document.getElementsByTagName("input");
     for (var i = 0; i < elements.length; i++) {  
@@ -161,7 +137,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
  * to one of the languages we are specified in the array strings declared below
  */
 document.onreadystatechange = function () {
-     if (document.readyState === "complete") {         
-        SetLanguage(localStorage.language); 
+     if (document.readyState === "complete") {   
+		/* 
+		 * localstorage stores the language with no expiration date so that every time we 
+		 * either access or refresh the page, the last language stored will be displayed
+		 */ 
+		if (localStorage.getItem("language") === "undefined" || localStorage.getItem("language") === null)
+		{
+			/*
+			 * STEP 3: INITIAL LANGUAGE
+			 * Enter the initial user interface language 
+			 * Important! The string value must match exactly one of the language names 
+			 * specified in the strings array
+			 */
+			localStorage.setItem("language", "en_GB");
+		}  
+        setLanguage(localStorage.language); 
    }
  };
